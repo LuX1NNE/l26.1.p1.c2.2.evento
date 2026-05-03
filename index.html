@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Eventos | Panel Principal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-light: #f8fafc;
+            --brand-dark: #0f172a;
+            --brand-blue: #2563eb;
+            --border: #e2e8f0;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body { 
+            background-color: var(--bg-light); 
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stat-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+            height: 100%;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+            text-transform: uppercase;
+            letter-spacing: 0.025em;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brand-dark);
+        }
+
+        .btn-add {
+            background-color: var(--brand-blue);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+        .btn-add:hover {
+            background-color: #1d4ed8;
+            color: white;
+        }
+
+        #Asistente {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .percentage-box {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: #f1f5f9;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container py-5">
+    <!-- Encabezado -->
+    <header class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-5">
+        <div>
+            <h1 class="fw-bold h2 mb-1">Registro de Evento</h1>
+            <p class="text-muted mb-0">Panel de control y métricas en tiempo real</p>
+        </div>
+        <button id="body_btAgregarAsistente" class="btn btn-add shadow-sm mt-3 mt-md-0">
+            + Agregar Asistente
+        </button>
+    </header>
+
+    <!-- Sección de Estadísticas -->
+    <section id="body">
+        <!-- Primera Fila: Resumen General -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Dinero Recaudado</span>
+                    <div class="stat-number text-success">$<span id="body_lblTotalPrecio">0</span></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Total Descuentos</span>
+                    <div class="stat-number">$<span id="body_lblTotalDescuentos">0</span></div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Promedio de Edad</span>
+                    <div class="stat-number"><span id="body_lblPromEdad">0</span> <small class="h6 text-muted">años</small></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Segunda Fila: Conteo de Asistentes -->
+        <div class="row g-4 mb-4">
+            <div class="col-6 col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Total Asistentes</span>
+                    <div id="body_lblTotalAsistentes" class="stat-number">0</div>
+                </div>
+            </div>
+            <div class="col-6 col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Asistentes VIP</span>
+                    <div id="body_lblTotalVIP" class="stat-number" style="color: #8b5cf6;">0</div>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="stat-card">
+                    <span class="stat-label">Asistentes Regulares</span>
+                    <div id="body_lblTotalRegulares" class="stat-number">0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Fila de Porcentajes -->
+        <div class="stat-card mb-5">
+            <div class="row g-3 text-center">
+                <div class="col-6 col-lg-3">
+                    <div class="percentage-box">
+                        <span class="d-block mb-1">Menores</span>
+                        <span id="body_lblPrctMenores" class="fw-bold text-dark h5">0</span>%
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="percentage-box">
+                        <span class="d-block mb-1">Mayores</span>
+                        <span id="body_lblPrctMayores" class="fw-bold text-dark h5">0</span>%
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="percentage-box">
+                        <span class="d-block mb-1">Regular</span>
+                        <span id="body_lblPrctRegulares" class="fw-bold text-dark h5">0</span>%
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="percentage-box">
+                        <span class="d-block mb-1">VIP</span>
+                        <span id="body_lblPrctVIP" class="fw-bold text-dark h5">0</span>%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario de Registro -->
+    <section id="Asistente" hidden class="p-4 p-md-5 mx-auto mt-5" style="max-width: 750px;">
+        <div class="mb-4">
+            <h2 id="Asistente_idAsistente" class="h4 fw-bold">Nuevo Registro</h2>
+        </div>
+        
+        <div class="row g-3">
+            <div class="col-md-6">
+                <label class="form-label">Nombre</label>
+                <input type="text" id="Asistente_inNombre" class="form-control">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Apellido</label>
+                <input type="text" id="Asistente_inApellido" class="form-control">
+            </div>
+            <div class="col-12">
+                <label class="form-label">Número de Cédula</label>
+                <input type="text" id="Asistente_inCedula" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Género</label>
+                <select id="Asistente_inSexo" class="form-select">
+                    <option value="" disabled selected>Elegir</option>
+                    <option value="M">Hombre</option>
+                    <option value="F">Mujer</option>
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">F. Nacimiento</label>
+                <input type="date" id="Asistente_inFechaNacimiento" class="form-control">
+            </div>
+            <div class="col-md-4">
+                <label class="form-label">Entrada</label>
+                <select id="Asistente_inTipoAsistente" class="form-select">
+                    <option value="" disabled selected>Elegir</option>
+                    <option value="regular">Regular</option>
+                    <option value="vip">VIP</option>
+                </select>
+            </div>
+            <div class="col-12 mt-3">
+                <label class="form-label">¿Es Estudiante?</label>
+                <select id="Asistente_inEstudiante" class="form-select">
+                    <option value="no">No</option>
+                    <option value="si">Si</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="d-flex gap-3 mt-5">
+            <button id="Asistente_btCancelar" class="btn btn-outline-secondary w-100 py-2">Cancelar</button>
+            <button id="Asistente_btAceptar" class="btn btn-add w-100 py-2">Aceptar</button>
+        </div>
+    </section>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="./dist/principal.js"></script>
+
+</body>
+</html> 

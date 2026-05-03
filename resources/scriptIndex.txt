@@ -1,0 +1,23 @@
+index (bootstrap)
+    import Cl_cEvento from "./dist/controllers/Cl_cEvento.js";
+    import Cl_cAsistente from "./dist/controllers/Cl_cAsistente.js";
+    import Cl_vEvento from "./dist/views/Cl_vEvento.js";
+    import Cl_vAsistente from "./dist/views/Cl_vAsistente.js";
+
+    const vistaEvento = new Cl_vEvento();
+    const vistaAsistente = new Cl_vAsistente();
+
+    const controladorAsistente = new Cl_cAsistente(vistaAsistente);
+    new Cl_cEvento(vistaEvento, controladorAsistente);
+
+index-plain
+            import Cl_cEvento from "./dist/controllers/Cl_cEvento.js";
+            import Cl_cAsistente from "./dist/controllers/Cl_cAsistente.js";
+            import Cl_vEvento from "./dist/views/Cl_vEvento.js";
+            import Cl_vAsistente from "./dist/views/Cl_vAsistente.js";
+
+            const vistaEvento = new Cl_vEvento();
+            const vistaAsistente = new Cl_vAsistente();
+
+            const controladorAsistente = new Cl_cAsistente(vistaAsistente);
+            new Cl_cEvento(vistaEvento, controladorAsistente);
